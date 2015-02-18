@@ -1,5 +1,9 @@
 function PlayGround(selector_ch1)
 {
+	// plays audio
+	var audio = new Audio('audio/streetfighter.mp3');
+	audio.play();
+
 	//create the first character
 	var ch1 = new Character(selector_ch1);
 	
@@ -7,28 +11,9 @@ function PlayGround(selector_ch1)
 	this.initialize = function()
 	{
 		$(document).keydown(function(e) {
-			//if the user pressed 'D'
-			if(e.keyCode == 39) {
-				ch1.updateAction("WALK_RIGHT");
-			}
-			else if(e.keyCode == 37) {
-				ch1.updateAction("WALK_LEFT");
-			}
-			else if(e.keyCode == 40) {
-				ch1.updateAction("KNEEL");
-			}
-			else if(e.keyCode == 65) {
-				ch1.updateAction("PUNCH");
-			}
-			else if(e.keyCode == 83) {
-				ch1.updateAction("KICK");
-			}
-			else if(e.keyCode == 68) {
-				ch1.updateAction("BEAM");
-			}
-			else if(e.keyCode == 70) {
-				ch1.updateAction("ROUND_HOUSE");
-			}
+			var arrayofkeys={39: "WALK_RIGHT", 37: "WALK_LEFT", 40:"KNEEL", 65: "PUNCH", 83: "KICK", 68:"BEAM", 70:"ROUND_HOUSE", 87:"JUMP"};
+			for (keys in arrayofkeys)
+				{if(e.keyCode==keys){ch1.updateAction(arrayofkeys[keys])}};
 		});
 	}
 
@@ -53,7 +38,8 @@ function Character(selector)
 		'KICK': 		{ 'y': 6, 'x': [0, 1, 2, 3, 4] },
 		'PUNCH': 		{ 'y': 2, 'x': [0, 1, 2] },
 		'BEAM': 		{ 'y': 0, 'x': [0, 1, 2, 3] },
-		'ROUND_HOUSE': 	{ 'y': 7, 'x': [0, 1, 2, 3, 4]}
+		'ROUND_HOUSE': 	{ 'y': 7, 'x': [0, 1, 2, 3, 4]},
+		'JUMP': 		{ 'y': 8, 'x': [0, 1, 2, 3, 4, 5, 6]}
 	}
 	var counter = 0;			//stores which sprite (in the x-direction) it should display 
 	this.action = "STANDING";	//default action is for the character to stand
